@@ -1,9 +1,9 @@
 {
-    "name": "lev/weather-helper",
-    "autoload": {
-        "psr-4": {
-            "WeatherHelper\\": "inc/"
-        }
-    },
-    "require": {}
+  "name": "lev/weather-helper",
+  "autoload": {
+    "psr-4": {
+      "WeatherHelper\\": "inc/"
+    }
+  },
+  "require": {}
 }
