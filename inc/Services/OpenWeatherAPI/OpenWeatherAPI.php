@@ -17,7 +17,6 @@ class OpenWeatherAPI
             $httpRequestFactory = new RequestFactory();
             $httpClient = GuzzleAdapter::createWithConfig([]);
 
-
             self::$weatherAPI = new OpenWeatherMap($api_key, $httpClient, $httpRequestFactory);;
         }
         return self::$weatherAPI;
