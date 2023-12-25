@@ -2,20 +2,31 @@
 
 namespace WeatherHelper\Services\Wordpress;
 
+use WeatherHelper\Contracts\Interfaces\ServiceInterface;
 use WeatherHelper\Services\Config\Config;
 use WeatherHelper\Services\Render\Render;
+use WeatherHelper\Services\Wordpress\Settings\Settings;
 
-class Dashboard
+class Dashboard implements ServiceInterface
 {
-    protected $page_render;
-    protected $admin_pages_config;
+    protected Render $page_render;
+    protected array $admin_pages_config;
+
+    protected Settings $plugin_settings;
+
     public function __construct()
     {
         $this->page_render = new Render();
         $this->admin_pages_config = Config::get("admin-view");
+        $this->plugin_settings = new Settings();
 
+
+    }
+    public function register()
+    {
         add_action( 'admin_menu', [$this, 'setAdminPage'] );
         add_action( 'admin_menu', [$this, 'setSubPage'] );
+        $this->plugin_settings->registerPluginSettings();
     }
 
     public function setAdminPage()

@@ -2,14 +2,21 @@
 
 namespace WeatherHelper;
 
+use WeatherHelper\Contracts\AbstractClasses\ServicesManagerAbstract;
+use WeatherHelper\Services\Wordpress\Assets\Assets;
 use WeatherHelper\Services\Wordpress\Dashboard;
+use WeatherHelper\Services\Wordpress\Settings\Settings;
 
-class WeatherHelperPlugin
+class WeatherHelperPlugin extends ServicesManagerAbstract
 {
     protected Dashboard $dashboard;
     public function __construct()
     {
-        $this->dashboard = new Dashboard();
+        $this->services =[
+            new Dashboard(),
+            new Settings(),
+            new Assets()
+        ];
     }
 
     public function activation()

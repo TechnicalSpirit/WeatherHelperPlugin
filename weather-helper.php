@@ -19,6 +19,7 @@ require 'vendor/autoload.php';
 //print_r(Config::get("admin-view"));
 
 $weatherHelperPlugin = new WeatherHelperPlugin();
+$weatherHelperPlugin->resisterServices();
 
 register_activation_hook( __FILE__, [$weatherHelperPlugin,'activation'] );
 register_deactivation_hook( __FILE__, [$weatherHelperPlugin,'deactivation']);
