@@ -17,28 +17,27 @@ require_once Config::get("template_dir")."admin/parts/header.php"
         </tr>
         </thead>
         <tbody>
+            <?php
+                $settings = new Settings();
 
-        <?php
-            $settings = new Settings();
+                $last_calls = $settings->getWeatherAPILastCalls();
+                $last_calls = array_reverse($last_calls);
 
-            $last_calls = $settings->getWeatherAPILastCalls();
-            $last_calls = array_reverse($last_calls);
+                $calls_shown = 0;
+                foreach ($last_calls as $last_call)
+                {
+                    if($calls_shown == Config::get("plugin-settings")["request_history_length"])
+                        break;
 
-            for($i = 0; $i < Config::get("plugin-settings")["request_history_length"]; $i++)
-            {
-	            if(count($last_calls) == 0)
-                    break;
+                    echo '<tr>
+                                <td>'.$last_call["time"].'</td>
+                                <td>'.$last_call["location"].'</td>
+                                <td>'.$last_call["temperature"].'</td>
+                           </tr>';
 
-                $last_call = $last_calls[$i];
-
-                echo '<tr>
-                            <td>'.$last_call["time"].'</td>
-                            <td>'.$last_call["location"].'</td>
-                            <td>'.$last_call["temperature"].'</td>
-                       </tr>';
-            }
-        ?>
-
+                    $calls_shown++;
+                }
+            ?>
         </tbody>
     </table>
 </div>
