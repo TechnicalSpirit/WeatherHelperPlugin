@@ -10,8 +10,13 @@ fetch('https://ipapi.co/json/')
             .then( response => response.json())
             .then( data => {
 
+                console.log(data)
                 if(is_data_with_problem(data))
                     return change_elements_content(data.error_message)
+
+                if(!is_temperature_exist(data))
+                    return change_elements_content(`${data.location}: unfortunately there is no information`+
+                                                          ` about the temperature in this city`)
 
                 change_elements_content(`${data.location}: ${data.temperature}`)
             } )
@@ -28,6 +33,13 @@ fetch('https://ipapi.co/json/')
 
 let is_data_with_problem = (data) => {
     return data.hasOwnProperty("error_message");
+}
+
+let is_temperature_exist = (data) => {
+    console.log(data.hasOwnProperty("temperature"));
+    console.log(data.temperature.length !== 0)
+    return data.hasOwnProperty("temperature") &&
+           data.temperature.length !== 0;
 }
 let change_elements_content  = ( content )  => {
     Array.from(elements).forEach(element => {
