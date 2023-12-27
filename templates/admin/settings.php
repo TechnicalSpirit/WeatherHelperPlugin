@@ -6,16 +6,14 @@ require_once Config::get("template_dir")."admin/parts/header.php"
 
 ?>
 <div class="container">
-    <form class="form-group">
-        <div>
-            <label>
-                Open Weather API Key
-            </label>
-            <input type="email"
-                   class="form-control"
-                   placeholder="API Key">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+    <form method="post" action="options.php">
+        <?php
+            $settings_page  = Config::get("admin-view")["settings-page"];
+
+            settings_fields( 'weather_helper_settings');
+            do_settings_sections( $settings_page["menu_slug"]);
+            submit_button();
+        ?>
     </form>
 </div>
 

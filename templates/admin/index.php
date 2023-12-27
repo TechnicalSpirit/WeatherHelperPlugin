@@ -1,6 +1,7 @@
 <?php
 
 use WeatherHelper\Services\Config\Config;
+use WeatherHelper\Wordpress\Settings\Settings;
 
 require_once Config::get("template_dir")."admin/parts/header.php"
 
@@ -16,31 +17,25 @@ require_once Config::get("template_dir")."admin/parts/header.php"
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-        </tr>
-        <tr>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-        </tr>
-        <tr>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-        </tr>
+
+        <?php
+            $settings = new Settings();
+
+            $last_calls = $settings->getWeatherAPILastCalls();
+            $last_calls = array_reverse($last_calls);
+
+            for($i = 0; $i < Config::get("plugin-settings")["request_history_length"]; $i++)
+            {
+                $last_call = $last_calls[$i];
+
+                echo '<tr>
+                            <td>'.$last_call["time"].'</td>
+                            <td>'.$last_call["location"].'</td>
+                            <td>'.$last_call["temperature"].'</td>
+                       </tr>';
+            }
+        ?>
+
         </tbody>
     </table>
 </div>

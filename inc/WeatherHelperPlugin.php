@@ -3,25 +3,38 @@
 namespace WeatherHelper;
 
 use WeatherHelper\Contracts\AbstractClasses\ServicesManagerAbstract;
-use WeatherHelper\Services\Wordpress\Assets\Assets;
-use WeatherHelper\Services\Wordpress\Dashboard;
-use WeatherHelper\Services\Wordpress\Settings\Settings;
+use WeatherHelper\Services\Config\Config;
+use WeatherHelper\Wordpress\Assets\Assets;
+use WeatherHelper\Wordpress\CustomBlocks\WeatherHelperBlock;
+use WeatherHelper\Wordpress\Dashboard\Dashboard;
+use WeatherHelper\Wordpress\Settings\Settings;
+use WeatherHelper\Wordpress\WeatherHelperAPI\WeatherHelperAPI;
 
 class WeatherHelperPlugin extends ServicesManagerAbstract
 {
-    protected Dashboard $dashboard;
     public function __construct()
     {
         $this->services =[
-            new Dashboard(),
+            new WeatherHelperAPI(),
             new Settings(),
-            new Assets()
+            new Assets(),
+            new WeatherHelperBlock(),
+            new Dashboard(),
         ];
     }
 
     public function activation()
     {
         flush_rewrite_rules();
+
+        $plugin_settings = Config::get("plugin-settings");
+
+        foreach ($plugin_settings as $setting_name => $_)
+        {
+            if ( ! get_option( $setting_name ) ) {
+                update_option( $setting_name, []);
+            }
+        }
     }
 
     public function deactivation()
