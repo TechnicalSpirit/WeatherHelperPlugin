@@ -34,7 +34,7 @@ class WeatherHelperAPI implements ServiceInterface
                     'methods' => $route["get_temperature_by_ip"]["method"],
                     'callback' => [$this,"getTemperatureByCity"],
                     'permission_callback' => '__return_true',
-                ],
+                ]
             );
         });
 

@@ -89,10 +89,10 @@ class Settings implements ServiceInterface
         $weather_helper_settings = $this->getWeatherHelperSettings();
 
         if( !key_exists('api_settings',$weather_helper_settings))
-            return false;
+            return "default_api_key";
 
         if( !key_exists('weather_helper_settings_api_key',$weather_helper_settings['api_settings']))
-            return false;
+            return "default_api_key";
 
         return $weather_helper_settings['api_settings']['weather_helper_settings_api_key'];
     }
