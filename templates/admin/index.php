@@ -26,6 +26,9 @@ require_once Config::get("template_dir")."admin/parts/header.php"
 
             for($i = 0; $i < Config::get("plugin-settings")["request_history_length"]; $i++)
             {
+	            if(count($last_calls) == 0)
+                    break;
+
                 $last_call = $last_calls[$i];
 
                 echo '<tr>
