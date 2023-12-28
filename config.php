@@ -47,7 +47,7 @@ return [
     ],
 
     "plugin-settings" => [
-        "weather-helper-settings" => [
+        "weather_helper_settings" => [
 
             "api_settings" => [
                 "weather_helper_settings_api_key" => "",
