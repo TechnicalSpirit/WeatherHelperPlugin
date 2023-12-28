@@ -11,6 +11,7 @@ fetch('https://ipapi.co/json/')
             .then( data => {
 
                 console.log(data)
+
                 if(is_data_with_problem(data))
                     return change_elements_content(data.error_message)
 
@@ -36,8 +37,6 @@ let is_data_with_problem = (data) => {
 }
 
 let is_temperature_exist = (data) => {
-    console.log(data.hasOwnProperty("temperature"));
-    console.log(data.temperature.length !== 0)
     return data.hasOwnProperty("temperature") &&
            data.temperature.length !== 0;
 }

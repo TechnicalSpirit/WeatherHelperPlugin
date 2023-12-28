@@ -5,7 +5,7 @@
     blocks.registerBlockType( 'block/block-weather-helper',
         {
             title: 'Block Weather Helper',
-            icon: 'admin-customizer',
+            icon: 'admin-site',
             category: 'common',
             edit: ( props ) => {
                 return el(
