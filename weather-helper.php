@@ -18,6 +18,5 @@ require 'vendor/autoload.php';
 $weatherHelperPlugin = new WeatherHelperPlugin();
 $weatherHelperPlugin->resisterServices();
 
-
 register_activation_hook( __FILE__, [$weatherHelperPlugin,'activation'] );
 register_deactivation_hook( __FILE__, [$weatherHelperPlugin,'deactivation']);
